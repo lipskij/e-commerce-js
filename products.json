@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "sys": { "id": "1" },
+      "fields": {
+        "title": "bike harper",
+        "price": 10.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img1.jpg" } } }
+      }
+    },
+    {
+      "sys": { "id": "2" },
+      "fields": {
+        "title": "bike pursuit",
+        "price": 12.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img2.jpg" } } }
+      }
+    },
+    {
+      "sys": { "id": "3" },
+      "fields": {
+        "title": "bike sully",
+        "price": 12.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img3.jpg" } } }
+      }
+    },
+    {
+      "sys": { "id": "4" },
+      "fields": {
+        "title": "bike cayenne",
+        "price": 22.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img4.jpg" } } }
+      }
+    },
+    {
+      "sys": { "id": "5" },
+      "fields": {
+        "title": "bike vintage",
+        "price": 88.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img5.jpg" } } }
+      }
+    },
+    {
+      "sys": { "id": "6" },
+      "fields": {
+        "title": "bike barcelona",
+        "price": 32.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img6.jpg" } } }
+      }
+    },
+    {
+      "sys": { "id": "7" },
+      "fields": {
+        "title": "bike raval",
+        "price": 45.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img7.jpg" } } }
+      }
+    },
+    {
+      "sys": { "id": "8" },
+      "fields": {
+        "title": "bike mantra",
+        "price": 33.99,
+        "image": { "fields": { "file": { "url": "./images/bike-img8.jpg" } } }
+      }
+    }
+  ]
+}
