@@ -182,7 +182,6 @@ class UI {
   clearCart() {
     let cartItems = cart.map(item => item.id);
     cartItems.forEach(id => this.removeItem(id));
-    console.log(cartContent);
     while(cartContent.children.length > 0) {
       cartContent.removeChild(cartContent.children[0]);
     }
