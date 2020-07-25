@@ -5,6 +5,9 @@ const client = contentful.createClient({
   accessToken: "kA4CGHy_yedOXuOiHoQIKP1qS6A16b-pVbc9cBreuDk"
 });
 
+// TODO: favorites with login/sign-up to save favorite products
+// TODO: favorites icon on product img hover - done
+
 const cartBtn = document.querySelector('.cart-btn');
 const closeCartBtn = document.querySelector('.close-cart');
 const clearCartBtn = document.querySelector('.clear-cart');
@@ -59,6 +62,10 @@ class UI {
                 alt="product" 
                 class="product-img"
               />
+              <button class="favorites-btn" data-id=${product.id}>
+                <i class="fa fa-gratipay"></i>
+                add to favorites
+              </button>
               <button class="bag-btn" data-id=${product.id}>
                 <i class="fa fa-shopping-cart"></i>
                 add to cart
