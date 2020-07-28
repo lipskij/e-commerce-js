@@ -6,7 +6,6 @@ const client = contentful.createClient({
 });
 
 // TODO: favorites with login/sign-up to save favorite products
-// TODO: favorites icon on product img hover - done
 
 const cartBtn = document.querySelector('.cart-btn');
 const closeCartBtn = document.querySelector('.close-cart');
@@ -64,7 +63,7 @@ class UI {
               />
               <button class="favorites-btn" data-id=${product.id}>
                 <i class="fa fa-gratipay"></i>
-                add to favorites
+                
               </button>
               <button class="bag-btn" data-id=${product.id}>
                 <i class="fa fa-shopping-cart"></i>
@@ -78,6 +77,7 @@ class UI {
     });
     productsDOM.innerHTML = result;
   }
+  // setting up cart (TODO: add favorites)
   getBagButtons() {
     const buttons = [...document.querySelectorAll('.bag-btn')];
     buttonsDOM = buttons;
@@ -106,6 +106,7 @@ class UI {
       });
     });
   }
+  // cart items (TODO: make same for favorite items)
   setCartValues(cart) {
     let tempTotal = 0;
     let itemsTotal = 0;
@@ -205,7 +206,7 @@ class UI {
   getSingleButton(id) {
     return buttonsDOM.find(button => button.dataset.id === id);
   }
-}
+} // end of cart (TODO: add favorites)
 
 // local storage
 class Storage {

@@ -46,6 +46,10 @@ body {
   border: none;
   background-color: rgb(231, 226, 221);
 }
+.favorites:hover {
+  color: var(--primaryColor);
+  transform: scale(1.1);
+}
 .cart-btn {
   position: relative;
   cursor: pointer;
@@ -133,7 +137,7 @@ body {
 }
 .favorites-btn {
   position: absolute;
-  top: 50%;
+  top: 10%;
   right: 0;
   background: var(--primaryColor);
   border: none;
