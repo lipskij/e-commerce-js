@@ -81,7 +81,7 @@ form.addEventListener("submit", (e) => {
 
   renderErrors(errors);
   if (!hasErrors(errors)) {
-    window.location = "/shop.html";
+    window.location = "/index.html";
   }
 });
 
