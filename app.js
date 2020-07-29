@@ -27,7 +27,7 @@ const productsDOM = document.querySelector(".products-center");
 const favoritescontent = document.querySelector(".favorites-content");
 const favoritesDOM = document.querySelector(".favorites");
 const favoritestOverlay = document.querySelector(".favorites-overlay");
-const favoritesBtn = document.querySelector(".favorites");
+const favoritesBtn = document.querySelector(".favorites-btn");
 const closeFavBtn = document.querySelector(".close-favorites");
 const clearFavBtn = document.querySelector(".clear-favorites");
 
@@ -84,7 +84,7 @@ class UI {
                 alt="product" 
                 class="product-img"
               />
-              <button class="favorites-btn" data-id=${product.id}>
+              <button class="fav-btn" data-id=${product.id}>
                 <i class="fa fa-gratipay"></i>
                 add
               </button>
@@ -130,7 +130,7 @@ class UI {
   }
   // favorites
   getFavButtons() {
-    const buttons = [...document.querySelectorAll(".favorites-btn")];
+    const buttons = [...document.querySelectorAll(".fav-btn")];
     buttonsDOM = buttons;
     buttons.forEach((button) => {
       let id = button.dataset.id;
