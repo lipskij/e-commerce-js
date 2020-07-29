@@ -34,7 +34,7 @@ const clearFavBtn = document.querySelector(".clear-favorites");
 // sign up
 signUp.addEventListener('click', (event) => {
   if (event.target === signUp) {
-    window.location = "index.html";
+    window.location = "signup.html";
   }
 });
 

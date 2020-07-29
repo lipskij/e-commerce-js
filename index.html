@@ -1,41 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Sign Up</title>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h2>Create Account</h2>
-    </div>
-    <form class="form" id="form">
-      <div class="form-control">
-        <label for="username">Username</label>
-        <input type="text" placeholder="Enter username" id="username" name="username">
-        <small>Error message</small>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles2.css" />
+    <title>Bicycle Shop</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-center">
+        <span class="nav-icon">
+          <i class="fa fa-bars"></i>
+        </span>
+        <img src="./images/roshiss.svg" alt="store logo" />
+        <button class="favorites-btn">
+          <span class="nav-icon">
+            <i class="fa fa-gratipay"></i>
+          </span>
+        </button>
+        <div class="cart-btn">
+          <span class="nav-icon">
+            <i class="fa fa-cart-plus"></i>
+          </span>
+          <div class="cart-items">0</div>
+        </div>
       </div>
-      <div class="form-control">
-        <label for="email">Email</label>
-        <input type="email" placeholder="Enter email" id="email" name="email">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Enter password" id="password" name="password">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="password2">Confirm password</label>
-        <input type="password" placeholder="Enter password" id="password2" name="password2">
-        <small>Error message</small>
-      </div>
-      <button>Submit</button>
-    </form>
-  </div>
+    </nav>
 
-  <script src="/script.js"></script>
-</body>
+    <!-- hero -->
+    <header class="hero">
+      <div class="banner">
+        <h1 class="banner-title">Bike Collection</h1>
+        <button class="banner-btn">Shop Now</button>
+      </div>
+    </header>
+
+    <!-- products -->
+    <section class="product">
+      <div class="section-title">
+        <h2>our products</h2>
+        <div class="products-center"></div>
+      </div>
+    </section>
+
+    <!-- cart -->
+    <div class="cart-overlay">
+      <div class="cart">
+        <span class="close-cart">
+          <i class="fa fa-times-circle"></i>
+        </span>
+        <h2>your cart</h2>
+        <div class="cart-content">
+          <!-- <div class="cart-item">
+            
+          </div> -->
+        </div>
+        <div class="cart-footer">
+          <h3>your total : $ <span class="cart-total">0</span></h3>
+          <button class="clear-cart banner-btn">clear cart</button>
+        </div>
+      </div>
+    </div>
+    <!-- favorites -->
+    <div class="favorites-overlay">
+      <div class="favorites">
+        <span class="close-favorites">
+          <i class="fa fa-times-circle"></i>
+        </span>
+        <h2>your favorites</h2>
+        <div class="favorites-content">
+          <!-- <div class="favorites-item">
+            
+          </div> -->
+        </div>
+        <div class="favorites-footer">
+          <button class="clear-favorites banner-btn">clear favorites</button>
+        </div>
+      </div>
+    </div>
+    <!-- end of favorite -->
+    <footer>
+      <div class="info">
+        <p>
+          CUSTOMER SERVICE<br>Payment methods<br>Delivery policy<br>Returns<br>Shipping
+          charges<br>Track your shipment<br>Gift Voucher<br>FAQs<br>Gifts for cyclists
+        </p>
+        <p>
+          ABOUT ROSHI'S BIKE<br>About us<br>Data privacy<br>Cookies<br>Terms and conditions
+          <br>All brands<br>Blog
+        </p>
+        <p>QUESTIONS ?<br>T. +44 15 6142 2150<br>hello@roshi.com</p>
+      </div>
+      <div class="social-links">
+        <a>
+          <img src="/images/facebook.svg" alt="facebook-logo"/>
+          <img src="/images/twitter.svg" alt="twitter-logo"/>
+          <img src="/images/mail.svg" alt="mail-logo"/>
+          <img src="/images/instagram.svg" alt="instagram-logo"/>
+          <img src="/images/youtube.svg" alt="youtube-logo"/>
+        </a>
+      </div>
+    </footer>
+    <!-- contentful -->
+    <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
