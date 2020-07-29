@@ -41,13 +41,11 @@ body {
   font-size: 1.8rem;
   cursor: pointer;
 }
+/* favorites */
 .favorites {
   outline: none;
   border: none;
   background-color: rgb(231, 226, 221);
-}
-.favorites:hover {
-  color: var(--primaryColor);
 }
 .cart-btn {
   position: relative;
@@ -136,7 +134,7 @@ body {
 }
 .favorites-btn {
   position: absolute;
-  top: 50%;
+  top: 10%;
   right: 0;
   background: var(--primaryColor);
   border: none;
@@ -198,6 +196,18 @@ body {
   z-index: 2;
   visibility: hidden;
 }
+/* favorites */
+.favorites-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  transition: var(--mainTransition);
+  background: rgba(58, 27, 78, 0.5);
+  z-index: 2;
+  visibility: hidden;
+}
 .cart {
   position: fixed;
   top: 0;
@@ -211,7 +221,8 @@ body {
   transition: var(--mainTransition);
   transform: translateX(100%);
 }
-.showCart {
+.showCart,
+.showFavorites {
   transform: translateX(0);
 }
 .transparentBcg {
@@ -229,6 +240,13 @@ body {
   cursor: pointer;
 }
 .cart h2 {
+  text-transform: capitalize;
+  text-align: center;
+  letter-spacing: var(--mainSpacing);
+  margin-bottom: 2rem;
+}
+/* favorites */
+.favorites h2 {
   text-transform: capitalize;
   text-align: center;
   letter-spacing: var(--mainSpacing);
@@ -255,6 +273,27 @@ body {
   margin: 0.5rem 0;
   letter-spacing: var(--mainSpacing);
 }
+/* favorites item */
+.favorites-item {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-column-gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+.favorites-item img {
+  width: 110px;
+  height: 75px;
+}
+.favorites-item h4 {
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  letter-spacing: var(--mainSpacing);
+}
+.favorites-item h5 {
+  margin: 0.5rem 0;
+  letter-spacing: var(--mainSpacing);
+}
 .item-amount {
   text-align: center;
 }
@@ -278,7 +317,16 @@ body {
   text-transform: capitalize;
   margin-bottom: 1rem;
 }
-
+/* favorites */
+.favorites-footer {
+  margin-top: 2rem;
+  letter-spacing: var(--mainSpacing);
+  text-align: center;
+}
+.favorites-footer h3 {
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
 .info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
