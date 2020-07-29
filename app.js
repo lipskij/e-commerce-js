@@ -6,6 +6,8 @@ const client = contentful.createClient({
 });
 
 // TODO: favorites with login/sign-up to save favorite products
+// sign up btn
+const signUp = document.querySelector('.banner-btn');
 
 const cartBtn = document.querySelector(".cart-btn");
 const closeCartBtn = document.querySelector(".close-cart");
@@ -23,6 +25,13 @@ const favoritestOverlay = document.querySelector(".favorites-overlay");
 const favoritesBtn = document.querySelector(".favorites");
 const closeFavBtn = document.querySelector(".close-favorites");
 const clearFavBtn = document.querySelector(".clear-favorites");
+
+// sign up
+signUp.addEventListener('click', (event) => {
+  if (event.target === signUp) {
+    window.location = "index.html";
+  }
+});
 
 // favorites
 let favorites = [];
