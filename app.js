@@ -6,6 +6,11 @@ const client = contentful.createClient({
 });
 
 // TODO: favorites with login/sign-up to save favorite products
+// TODO: add login
+// TODO: enable favorites after signup/login
+// TODO: refactor code
+// TODO: add favorites to database
+
 // sign up btn
 const signUp = document.querySelector('.banner-btn');
 
