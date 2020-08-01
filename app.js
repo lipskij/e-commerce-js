@@ -29,6 +29,8 @@ const favoritesDOM = document.querySelector(".favorites");
 const favoritestOverlay = document.querySelector(".favorites-overlay");
 const favoritesBtn = document.querySelector(".favorites-btn");
 const closeFavBtn = document.querySelector(".close-favorites");
+const favTotal = document.querySelector(".favorites-total");
+const favItems = document.querySelector(".favorites-items");
 const clearFavBtn = document.querySelector(".clear-favorites");
 
 // sign up
@@ -146,6 +148,8 @@ class UI {
         let favoritesItem = { ...Storage.getProduct(id), amount: 1 };
         // add to the favorites
         favorites = [...favorites, favoritesItem];
+        Storage.saveFav(favorites);
+        this.setFavValues(favorites);
         // display favorite item
         this.addFavoritesItem(favoritesItem);
         // show the favorites
@@ -163,6 +167,18 @@ class UI {
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
     cartItems.innerText = itemsTotal;
   }
+  // favorites
+  setFavValues(favorites) {
+    let tempTotal = 0;
+    let itemsTotal = 0;
+    favorites.map((item) => {
+      tempTotal += item.price * item.amount;
+      itemsTotal += item.amount;
+    });
+    favTotal.innerText = parseFloat(tempTotal.toFixed(2));
+    favItems.innerText = itemsTotal;
+  }
+
   addCartItem(item) {
     const div = document.createElement("div");
     div.classList.add("cart-item");
@@ -202,8 +218,11 @@ class UI {
   }
   setupAPP() {
     cart = Storage.getCart();
+    favorites = Storage.getFav();
     this.setCartValues(cart);
+    this.setFavValues(favorites);
     this.populateCart(cart);
+    this.populateFav(favorites);
     cartBtn.addEventListener("click", this.showCart);
     favoritesBtn.addEventListener('click', this.showFavorites);
     closeCartBtn.addEventListener("click", this.hideCart);
@@ -211,6 +230,10 @@ class UI {
   }
   populateCart(cart) {
     cart.forEach((item) => this.addCartItem(item));
+  }
+  // favorites
+  populateFav(favorites) {
+    favorites.forEach((item) => this.addFavoritesItem(item));
   }
   hideCart() {
     cartOverlay.classList.remove("transparentBcg");
@@ -323,6 +346,15 @@ class Storage {
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
   }
+  //favorites
+  static saveFav(favorites) {
+    localStorage.setItem("favorites", JSON.stringify(cart));
+  }
+  static getFav() {
+    return localStorage.getItem("favorites")
+      ? JSON.parse(localStorage.getItem("favorites"))
+      : [];
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -340,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(() => {
       ui.cartLogic();
       ui.favoritesLogic();
-      // ui.getFavButtons();
+      ui.getFavButtons();
       ui.getBagButtons();
     });
 });
