@@ -43,15 +43,18 @@ body {
 }
 /* favorites */
 .favorites-btn {
+  position: relative;
   outline: none;
   border: none;
+  cursor: pointer;
   background-color: rgb(231, 226, 221);
 }
 .cart-btn {
   position: relative;
   cursor: pointer;
 }
-.cart-items {
+.cart-items,
+.favorites-items {
   position: absolute;
   top: -6px;
   right: -12px;
@@ -225,7 +228,7 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  width: 100%;
+  width: 30vw;
   height: 100%;
   overflow: scroll;
   z-index: 3;
@@ -237,9 +240,6 @@ body {
 .showCart {
   transform: translateX(0);
 }
-.showFavorites {
-  transform: translateX(0);
-}
 .transparentBcg {
   visibility: visible;
 }
@@ -248,9 +248,14 @@ body {
     width: 30vw;
     min-width: 450px;
   }
+  .favorties {
+    width: 30vw;
+    min-width: 450px;
+  }
 }
 
-.close-cart {
+.close-cart,
+.close-favorites {
   font-size: 1.7rem;
   cursor: pointer;
 }
