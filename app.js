@@ -214,7 +214,7 @@ class UI {
   // show favorites
   showFavorites() {
     favoritestOverlay.classList.add("transparentBcg");
-    favoritesDOM.classList.add("showFavorites");
+    favoritesDOM.classList.add("showCart");
   }
   setupAPP() {
     cart = Storage.getCart();
@@ -292,10 +292,9 @@ class UI {
         let removeItem = event.target;
         let id = removeItem.dataset.id;
         favoritescontent.removeChild(removeItem.parentElement.parentElement);
-        this.removeItem(id);
+        this.removeFavItem(id);
       } else {
         favoritescontent.removeChild(lowerAmount.parentElement.parentElement);
-        // this.removeItem(id);
       }
     });
   }
@@ -310,7 +309,7 @@ class UI {
   // favorites
   clearFavorites() {
     let favoritesItems = favorites.map((item) => item.id);
-    favoritesItems.forEach((id) => this.removeItem(id));
+    favoritesItems.forEach((id) => this.removeFavItem(id));
     while (favoritescontent.children.length > 0) {
       favoritescontent.removeChild(favoritescontent.children[0]);
     }
@@ -323,6 +322,15 @@ class UI {
     let button = this.getSingleButton(id);
     button.disabled = false;
     button.innerHTML = `<i class="fa fa-shopping-cart"></i>add`;
+  }
+  // favorties
+  removeFavItem(id) {
+    favorites = favorites.filter((item) => item.id !== id);
+    this.setFavValues(favorites);
+    Storage.saveFav(favorites);
+    let button = this.getSingleButton(id);
+    button.disabled = false;
+    button.innerHTML = `<i class="fa fa-gratipay"></i>add`;
   }
   getSingleButton(id) {
     return buttonsDOM.find((button) => button.dataset.id === id);
@@ -348,7 +356,7 @@ class Storage {
   }
   //favorites
   static saveFav(favorites) {
-    localStorage.setItem("favorites", JSON.stringify(cart));
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }
   static getFav() {
     return localStorage.getItem("favorites")
