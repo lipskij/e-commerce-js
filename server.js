@@ -1,4 +1,5 @@
 const express = require("express");
+const serveStatic = require('serve-static')
 const app = express();
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
@@ -8,12 +9,15 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => res.sendFile(`${__dirname}/index.html`));
-app.get("/style.css", (req, res) => res.sendFile(`${__dirname}/style.css`));
-app.get("/styles2.css", (req, res) => res.sendFile(`${__dirname}/styles2.css`));
-app.get("/script.js", (req, res) => res.sendFile(`${__dirname}/script.js`));
-app.get("/signup.html", (req, res) => res.sendFile(`${__dirname}/signup.html`));
-app.get("/app.js", (req, res) => res.sendFile(`${__dirname}/app.js`));
+// app.use(serveStatic('/static', { 'index': ['index.html', 'index.htm'] }))
+app.use(express.static('static'))
+
+// app.get("/", (req, res) => res.sendFile(`${__dirname}/index.html`));
+// app.get("/style.css", (req, res) => res.sendFile(`${__dirname}/style.css`));
+// app.get("/styles2.css", (req, res) => res.sendFile(`${__dirname}/styles2.css`));
+// app.get("/script.js", (req, res) => res.sendFile(`${__dirname}/script.js`));
+// app.get("/signup.html", (req, res) => res.sendFile(`${__dirname}/signup.html`));
+// app.get("/app.js", (req, res) => res.sendFile(`${__dirname}/app.js`));
 
 
 app.post("/signup", (req, res) => {
@@ -58,6 +62,7 @@ app.post("/login", (req, res) => {
               username: req.body.username,
             },
           }).then((users) => {
+            res.redirect('/')
             res.send(users[0]);
           });
         } else {
