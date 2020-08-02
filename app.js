@@ -108,6 +108,11 @@ class UI {
     this.cart.addEventListener('update', this.setCartValues);
     this.cart.addEventListener('update', this.populateCart);
     this.cart.addEventListener('update', (event) => Storage.saveCart(event.target.cart));
+    this.cart.addEventListener('update', (event) => this.displayProducts(Storage.getProducts() || []))
+    this.cart.addEventListener('update', () => {
+      this.getBagButtons();
+      this.getFavButtons();
+    })
 
     this.cart.update();
 
@@ -117,8 +122,16 @@ class UI {
     this.favorites.addEventListener('update', this.setFavValues);
     this.favorites.addEventListener('update', this.populateFav);
     this.favorites.addEventListener('update', (event) => Storage.saveFav(event.target.favorites));
+    this.favorites.addEventListener('update', (event) => this.displayProducts(Storage.getProducts() || []))
+    this.favorites.addEventListener('update', () => {
+      this.getBagButtons();
+      this.getFavButtons();
+    })
 
     this.favorites.update();
+
+    this.cartLogic();
+    this.favoritesLogic();
 
     cartBtn.addEventListener('click', this.showCart);
     closeCartBtn.addEventListener('click', this.hideCart);
@@ -126,9 +139,10 @@ class UI {
     closeFavBtn.addEventListener('click', this.hideFavorites);
   }
   displayProducts(products) {
-    let result = "";
-    products.forEach((product) => {
-      result += `
+    let result = products.reduce((acc, product) => {
+      let inCart = this.cart.cart.find((item) => item.id === product.id);
+      let inFavorites = this.favorites.favorites.find((item) => item.id === product.id);
+      acc += `
       <!-- single product -->
           <article class="product">
             <div class="img-container">
@@ -137,35 +151,38 @@ class UI {
                 alt="product" 
                 class="product-img"
               />
-              <button class="fav-btn" data-id=${product.id}>
+              <button ${inFavorites ? 'disabled' : ''} class="fav-btn" data-id=${product.id}>
                 <i class="fa fa-gratipay"></i>
-                add
+                ${
+                  inFavorites
+                  ? "Added"
+                  : "Add"
+                }
               </button>
-              <button class="bag-btn" data-id=${product.id}>
+              <button ${inCart ? 'disabled' : ''} class="bag-btn" data-id=${product.id}>
                 <i class="fa fa-shopping-cart"></i>
-                add
+                ${
+                  inCart
+                  ? "In Cart"
+                  : "Add"
+                }
               </button>
             </div>
             <h3>${product.title}</h3>
             <h4>$${product.price}</h4>
           </article>
       `;
-    });
+      return acc;
+    }, '');
+
     productsDOM.innerHTML = result;
-  }
+  };
   getBagButtons() {
     const buttons = [...document.querySelectorAll(".bag-btn")];
     buttonsDOM = buttons;
     buttons.forEach((button) => {
       let id = button.dataset.id;
-      let inCart = this.cart.cart.find((item) => item.id === id);
-      if (inCart) {
-        button.innerText = "In Cart";
-        button.disabled = true;
-      }
       button.addEventListener("click", (event) => {
-        event.target.innerText = "In Cart";
-        event.target.disabled = true;
         // get product from products
         let cartItem = { ...Storage.getProduct(id), amount: 1 };
         // add to the cart
@@ -181,14 +198,7 @@ class UI {
     buttonsDOM = buttons;
     buttons.forEach((button) => {
       let id = button.dataset.id;
-      let inFavorites = this.favorites.favorites.find((item) => item.id === id);
-      if (inFavorites) {
-        button.innerText = "Added";
-        button.disabled = true;
-      }
       button.addEventListener("click", (event) => {
-        event.target.innerText = "Added";
-        event.target.disabled = true;
         // get product from products
         let favoritesItem = { ...Storage.getProduct(id), amount: 1 };
         // add to the favorites
@@ -287,19 +297,15 @@ class UI {
     });
     // cart functionality
     cartContent.addEventListener("click", (event) => {
+      let id = event.target.dataset.id;
+
       if (event.target.classList.contains("remove-item")) {
-        let removeItem = event.target;
-        let id = removeItem.dataset.id;
         this.removeItem(id);
       } else if (event.target.classList.contains("fa-chevron-up")) {
-        let addAmount = event.target;
-        let id = addAmount.dataset.id;
         let tempItem = this.cart.cart.find((item) => item.id === id);
         tempItem.amount = tempItem.amount + 1;
         this.cart.update();
       } else if (event.target.classList.contains("fa-chevron-down")) {
-        let lowerAmount = event.target;
-        let id = lowerAmount.dataset.id;
         let tempItem = this.cart.cart.find((item) => item.id === id);
         tempItem.amount = tempItem.amount - 1;
         if (tempItem.amount > 0) {
@@ -336,16 +342,10 @@ class UI {
   }
   removeItem(id) {
     this.cart.cart = this.cart.cart.filter((item) => item.id !== id);
-    let button = this.getSingleButton(id);
-    button.disabled = false;
-    button.innerHTML = `<i class="fa fa-shopping-cart"></i>add`;
   }
   // favorties
   removeFavItem(id) {
     this.favorites.favorites = this.favorites.favorites.filter((item) => item.id !== id);
-    let button = this.getSingleButton(id);
-    button.disabled = false;
-    button.innerHTML = `<i class="fa fa-gratipay"></i>add`;
   }
 
   getSingleButton(id) {
@@ -357,6 +357,10 @@ class UI {
 class Storage {
   static saveProducts(products) {
     localStorage.setItem("products", JSON.stringify(products));
+  }
+  static getProducts() {
+    let products = JSON.parse(localStorage.getItem("products"));
+    return products;
   }
   static getProduct(id) {
     let products = JSON.parse(localStorage.getItem("products"));
@@ -382,17 +386,12 @@ class Storage {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const ui = new UI();
   const products = new Products();
   // get all products
   products
     .getProducts()
     .then((products) => {
-      ui.displayProducts(products);
       Storage.saveProducts(products);
-      ui.cartLogic();
-      ui.favoritesLogic();
-      ui.getFavButtons();
-      ui.getBagButtons();
+      const ui = new UI();
     });
 });
