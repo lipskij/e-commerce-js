@@ -3,125 +3,170 @@ const username = document.getElementById("username");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const password2 = document.getElementById("password2");
-const fields = { username, email, password, password2 };
+const msg = document.getElementById("msg");
+const btn = document.getElementsByTagName("button");
+const loginForm = document.getElementById("loginForm");
+const loginUserName = document.getElementById("login-username");
+const loginPassword = document.getElementById("login-password");
 
-function notEmpty(value) {
-  return value.trim() !== "";
+let hasError = false;
+
+// show input err message
+function showError(input, message) {
+  const formControl = input.parentElement;
+  formControl.className = "form-control error";
+  const small = formControl.querySelector("small");
+  small.innerText = message;
 }
-
-function isEmail(email) {
-  return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email
-  );
-}
-
-function matches(key) {
-  return function (value, context) {
-    return value === context[key];
-  };
-}
-
-function length(min = 0, max = Infinity) {
-  return function (value) {
-    return value.length >= min && value.length < max;
-  };
-}
-
-const signupFormSchema = {
-  username: [
-    { validator: notEmpty, message: "Username cannot be empty" },
-    {
-      validator: length(4, 20),
-      message: "Username should be at least 4 characters",
-    },
-  ],
-  email: [
-    { validator: notEmpty, message: "Email cannot be empty" },
-    { validator: isEmail, message: "Email should be an email" },
-  ],
-  password: [
-    { validator: notEmpty, message: "Password cannot be empty" },
-    {
-      validator: length(8, 30),
-      message: "Password should be at least 8 characters",
-    },
-  ],
-  password2: [
-    { validator: notEmpty, message: "Password cannot be empty" },
-    { validator: matches("password"), message: "Passwords have to match" },
-  ],
-};
-
-function validate(schema, values) {
-  console.log(schema, values);
-  console.log(Object.entries(schema));
-  const entries = Object.entries(schema).map(([propertyName, validators]) => [
-    propertyName,
-    validators
-      .filter(({ validator }) => !validator(values[propertyName], values))
-      .map(({ message }) => message),
-  ]);
-  console.log(entries);
-  return Object.fromEntries(entries);
-}
-
-function getValuesObj(form) {
-  const formData = new FormData(form);
-  return Object.fromEntries(formData.entries()); // ???
-}
-
-function hasErrors(errors) {
-  return Object.entries(errors).some(([key, value]) => value.length);
-}
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const values = getValuesObj(e.target);
-  const errors = validate(signupFormSchema, values);
-
-  renderErrors(errors);
-  if (!hasErrors(errors)) {
-    window.location = "/index.html";
-  }
-});
-
-function renderErrors(errors) {
-  Object.entries(errors).forEach(([key, messages]) => {
-    if (messages.length) {
-      setErrorFor(fields[key], messages);
-    } else {
-      setSuccessFor(fields[key]);
-    }
+// clear input status
+function clearStatus(...inputs) {
+  inputs.forEach((input) => {
+    const formControl = input.parentElement;
+    formControl.classList.remove("success");
+    formControl.classList.remove("error");
   });
 }
 
-function setErrorFor(input, message) {
-  const firstMsg = message[0];
-  const formControl = input.parentElement; // .form-control
-  const small = formControl.querySelector("small");
-  // add error message inside small tag
-  small.innerText = firstMsg;
-  // add error class
-  formControl.className = "form-control error";
-}
-
-function setSuccessFor(input) {
+// show success outline
+function showSuccess(input) {
   const formControl = input.parentElement;
   formControl.className = "form-control success";
 }
 
-function renderLiveUpdate(event) {
-  const name = event.target.name;
-  const errors = validate(
-    { [name]: signupFormSchema[name] },
-    getValuesObj(form)
-  );
-  if (errors[name].length) {
-    setErrorFor(fields[name], errors[name]);
+// show access message : make it visible only when all fields ar valid
+function successMessage() {
+  const formControl = msg.parentElement;
+  formControl.className = "form-control access";
+  msg.textContent = "Welcome!";
+}
+
+// check email is valid
+function checkEmail(input) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (re.test(input.value.trim())) {
+    showSuccess(input);
   } else {
-    setSuccessFor(fields[name]);
+    showError(input, "Email is not valid");
   }
 }
 
-//live ui update
-form.addEventListener("keyup", renderLiveUpdate);
+// check rquired fields
+function checkRequired(inputArr) {
+  inputArr.forEach(function (input) {
+    if (input.value.trim() === "") {
+      showError(input, `${getFieldName(input)} is required`);
+    } else {
+      showSuccess(input);
+    }
+  });
+}
+
+// check input length
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    showError(
+      input,
+      `${getFieldName(input)} must be at least ${min} characters`
+    );
+  } else if (input.value.length > max) {
+    showError(
+      input,
+      `${getFieldName(input)} must be less then ${max} characters`
+    );
+  } else {
+    showSuccess(input);
+  }
+}
+
+// check passwords mach
+function checkPasswordsMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showError(input2, "Passwords do not match");
+  }
+}
+
+// get field name
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
+
+// Event Listeners
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  checkRequired([username, email, password, password2]);
+  checkLength(username, 3, 15);
+  checkLength(password, 6, 25);
+  checkEmail(email);
+  checkPasswordsMatch(password, password2);
+  // sends the users info to the back end
+  fetch("/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username.value,
+      email: email.value,
+      password: password.value,
+    }),
+  })
+    .then((response) => {
+      // when response
+      console.log(response.status);
+      if (response.status === 400) {
+        // check if response status 400
+        hasError = true; //if 400 then it has err
+      } else {
+        hasError = false; // if false then no err
+      }
+      return response.text(); // response message text
+    })
+    .then((message) => {
+      if (hasError === true) {
+        // if status 400
+        showError(username, message); // when user name mach then show err message
+      }
+    })
+    .then(console.log);
+});
+
+loginForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  clearStatus(loginUserName, loginPassword);
+
+  fetch("/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: loginUserName.value,
+      password: loginPassword.value,
+    }),
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        // clear err message
+        hasError = false;
+      } else if (response.status === 401) {
+        hasError = true;
+      }
+      return response.json();
+    })
+    .then((message) => {
+      if (hasError === false) {
+        // clear err message
+        showSuccess(loginUserName);
+        showSuccess(loginPassword);
+      } else if (hasError === true) {
+        if (message.username) {
+          showError(loginUserName, message.username); // if status is 401
+        }
+        if (message.password) {
+          showError(loginPassword, message.password);
+        }
+      }
+    })
+    .then(console.log);
+});

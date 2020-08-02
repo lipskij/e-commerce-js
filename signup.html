@@ -1,46 +1,60 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Sign Up</title>
+  <title>Form Validation JS</title>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h2>Create Account</h2>
-    </div>
-    <form class="form" id="form">
+    <form id="form" class="form" method="POST">
+      <h2>Sign Up</h2>
       <div class="form-control">
         <label for="username">Username</label>
-        <input type="text" placeholder="Enter username" id="username" name="username">
+        <input type="text" id="username" placeholder="Enter username">
         <small>Error message</small>
       </div>
       <div class="form-control">
         <label for="email">Email</label>
-        <input type="email" placeholder="Enter email" id="email" name="email">
+        <input type="text" id="email" placeholder="Enter email">
         <small>Error message</small>
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" placeholder="Enter password" id="password" name="password">
+        <input type="password" id="password" placeholder="Enter password">
         <small>Error message</small>
       </div>
       <div class="form-control">
-        <label for="password2">Confirm password</label>
-        <input type="password" placeholder="Enter password" id="password2" name="password2">
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" placeholder="Enter password again">
         <small>Error message</small>
       </div>
-      <button>Submit</button>
+      <div class="form-control">
+        <p id="msg"></p>
+      </div>
+      <button type="submit">Submit</button>
     </form>
   </div>
-<<<<<<< HEAD
-  <script src=“https://unpkg.com/@ungap/event-target@0.2.2/min.js”></script>
-=======
-
+  <div class="container">
+    <form id="loginForm" class="form" method="POST">
+      <h2>Login</h2>
+      <div class="form-control">
+        <label for="username">Username</label>
+        <input type="text" onfocus="this.value=''" id="login-username" placeholder="Enter username">
+        <small>Error message</small>
+      </div>
+      <div class="form-control">
+        <label for="password">Password</label>
+        <input type="password" onfocus="this.value=''" id="login-password" placeholder="Enter password">
+        <small>Error message</small>
+      </div>
+      <div class="form-control">
+        <p id="msg"></p>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
   <script src="https://unpkg.com/@ungap/event-target@0.2.2/min.js"></script>
->>>>>>> a49868d337159af02fae2f8951d4ec7de80b3238
   <script src="/script.js"></script>
 </body>
 </html>
