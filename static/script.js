@@ -137,6 +137,7 @@ loginForm.addEventListener("submit", function (e) {
 
   fetch("/login", {
     method: "POST",
+    redirect: "follow",
     headers: {
       "Content-Type": "application/json",
     },
@@ -146,6 +147,9 @@ loginForm.addEventListener("submit", function (e) {
     }),
   })
     .then((response) => {
+      if (response.redirected) {
+        window.location.href = response.url;
+      }
       if (response.status === 200) {
         // clear err message
         hasError = false;
