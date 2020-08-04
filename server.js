@@ -1,16 +1,24 @@
 const express = require("express");
 const serveStatic = require('serve-static')
+const cookieSession = require('cookie-session');
 const app = express();
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const User = require("./user");
 const salt = 10;
 const port = 3000;
+const Favorite = require('./favorites');
 
 app.use(bodyParser.json());
 
 // app.use(serveStatic('/static', { 'index': ['index.html', 'index.htm'] }))
 app.use(express.static('static'))
+
+app.use(cookieSession({
+  name: 'session',
+  secret: process.env.SECRET,
+  maxAge: 24 * 60 * 60 * 1000,
+}))
 
 // app.get("/", (req, res) => res.sendFile(`${__dirname}/index.html`));
 // app.get("/style.css", (req, res) => res.sendFile(`${__dirname}/style.css`));
@@ -62,6 +70,8 @@ app.post("/login", (req, res) => {
               username: req.body.username,
             },
           }).then((users) => {
+            req.session.username = users[0].username;
+            req.session.userId = users[0].id;
             res.redirect('/')
             res.send(users[0]);
           });
@@ -70,6 +80,16 @@ app.post("/login", (req, res) => {
         }
       });
     }
+  });
+});
+
+app.post('/favorites', (req, res) => {
+  const newFavorites = Favorite.build({
+    productId: req.body.productId,
+    userId: req.session.userId,
+  });
+  newFavorites.save().then(() => res.send()).catch(() => {
+    res.sendStatus(400);
   });
 });
 
