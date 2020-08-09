@@ -1,8 +1,8 @@
 {
-  "name": "form-val",
+  "name": "e-commerce",
+  "main": "index.js",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@pulumi/pulumi": "^2.0.0",
+    "@pulumi/aws": "^2.0.0",
+    "@pulumi/awsx": "^0.20.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-session": "^1.4.0",
