@@ -3,56 +3,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Form Validation JS</title>
+  <title>Sign Up Login</title>
 </head>
 <body>
-  <div class="container">
-    <form id="form" class="form" method="POST">
-      <h2>Sign Up</h2>
-      <div class="form-control">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter username">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Enter email">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="password2">Confirm Password</label>
-        <input type="password" id="password2" placeholder="Enter password again">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <p id="msg"></p>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+  <div class="overlay-left">
+    <div class="container">
+      <form id="form" class="form" method="POST">
+        <h2>Sign Up</h2>
+        <div class="form-control">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter username">
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input type="text" id="email" placeholder="Enter email">
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password">
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <label for="password2">Confirm Password</label>
+          <input type="password" id="password2" placeholder="Enter password again">
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <p class="msg-login">Already have an account?</p>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </div>
-  <div class="container">
-    <form id="loginForm" class="form" method="POST">
-      <h2>Login</h2>
-      <div class="form-control">
-        <label for="username">Username</label>
-        <input type="text" onfocus="this.value=''" id="login-username" placeholder="Enter username">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" onfocus="this.value=''" id="login-password" placeholder="Enter password">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <p id="msg"></p>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+  <div class="overlay-right inactive">
+    <div class="container">
+      <form id="loginForm" class="form" method="POST">
+        <h2>Login</h2>
+        <div class="form-control">
+          <label for="username">Username</label>
+          <input type="text" onfocus="this.value=''" id="login-username" placeholder="Enter username">
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" onfocus="this.value=''" id="login-password" placeholder="Enter password">
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <p class="msg-register">Don't have an account?</p>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </div>
   <script src="https://unpkg.com/@ungap/event-target@0.2.2/min.js"></script>
   <script src="/script.js"></script>

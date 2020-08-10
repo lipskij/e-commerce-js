@@ -9,6 +9,21 @@ const loginForm = document.getElementById("loginForm");
 const loginUserName = document.getElementById("login-username");
 const loginPassword = document.getElementById("login-password");
 
+const signUp = document.querySelector('.msg-register');
+const logIn = document.querySelector('.msg-login');
+const registerPannel = document.querySelector('.overlay-left');
+const loginPannel = document.querySelector('.overlay-right');
+
+signUp.addEventListener('click', () => {
+  registerPannel.classList.remove('inactive');
+  loginPannel.classList.add('inactive');
+});
+logIn.addEventListener('click', () => {
+  loginPannel.classList.remove('inactive');
+  registerPannel.classList.add('inactive');
+});
+
+
 let hasError = false;
 
 // show input err message

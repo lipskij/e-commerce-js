@@ -21,6 +21,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   width: 400px;
+  height: 74vh;
 }
 
 .form {
@@ -78,20 +79,21 @@ h2 {
 }
 
 .form-control p {
-  visibility: hidden;
+  text-decoration: underline;
   position: relative;
+  color: #915FA9;
+  cursor: pointer;
 }
 .form-control.access p {
   display: block;
   text-align: center;
-  visibility: visible;
   font-size: 18px;
 }
 
 .form button {
   cursor: pointer;
-  background-color: #3489db;
-  border: 2px solid #3489db;
+  background-color: #915FA9;
+  border: 2px solid #915FA9;
   border-radius: 4px;
   color: #fff;
   display: block;
@@ -99,4 +101,27 @@ h2 {
   padding: 10px;
   margin-top: 20px;
   width: 100%;
+}
+
+.inactive {
+  visibility: hidden;
+}
+
+.overlay-left.inactive {
+  transition: 0.6s all ease-in-out;
+  opacity: 0.1;
+}
+.overlay-right.inactive {
+  transition: 0.6s all ease-in-out;
+  opacity: 0.1;
+}
+.overlay-right {
+  transform: translateX(0);
+  transition: 0.6s all ease-in-out;
+  opacity: 1;
+}
+.overlay-left {
+  transform: translateX(0);
+  transition: 0.6s all ease-in-out;
+  opacity: 1;
 }
