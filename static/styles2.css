@@ -8,6 +8,10 @@
   --mainSpacing: 0.1rem;
   --mainTransition: all 0.3s ease-out;
 }
+
+html {
+  scroll-behavior: smooth;
+}
 * {
   margin: 0;
   padding: 0;
@@ -73,14 +77,20 @@ body {
   display: inline-block;
   padding: 2rem;
 }
+.banner a {
+  text-decoration: none;
+}
 .banner-title {
   font-size: 3rem;
   text-transform: uppercase;
   letter-spacing: var(--mainSpacing);
   margin-bottom: 3rem;
 }
-.banner-btn {
-  padding: 1rem 3rem;
+.banner-btn,
+.login-btn {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
   text-transform: uppercase;
   letter-spacing: var(--mainSpacing);
   font-size: 1rem;
@@ -89,8 +99,13 @@ body {
   border: 1px solid var(--primaryColor);
   transition: var(--mainTransition);
   cursor: pointer;
+  margin: 0.5rem auto;
 }
-.banner-btn:hover {
+.login-btn {
+  padding: 1rem 3.1rem;
+}
+.banner-btn:hover,
+.login-btn:hover {
   background: transparent;
   color: var(--mainBlack);
 }
