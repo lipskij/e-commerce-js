@@ -1,3 +1,5 @@
+import Storage from'/storage.js';
+
 const form = document.getElementById("form");
 const username = document.getElementById("username");
 const email = document.getElementById("email");
@@ -46,13 +48,6 @@ function clearStatus(...inputs) {
 function showSuccess(input) {
   const formControl = input.parentElement;
   formControl.className = "form-control success";
-}
-
-// show access message : make it visible only when all fields ar valid
-function successMessage() {
-  const formControl = msg.parentElement;
-  formControl.className = "form-control access";
-  msg.textContent = "Welcome!";
 }
 
 // check email is valid
@@ -164,6 +159,7 @@ loginForm.addEventListener("submit", function (e) {
     .then((response) => {
       if (response.redirected) {
         window.location.href = response.url;
+        Storage.loggedIn(true);
       }
       if (response.status === 200) {
         // clear err message

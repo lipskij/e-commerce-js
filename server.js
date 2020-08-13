@@ -1,5 +1,4 @@
 const express = require("express");
-const serveStatic = require('serve-static')
 const cookieSession = require('cookie-session');
 const app = express();
 const bodyParser = require("body-parser");
@@ -20,6 +19,21 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
 }))
 
+app.get('/profile', function (req, res) {
+  User.findAll({
+    attributes: ["username"],
+    where: {
+      id: req.session.userId,
+    },
+  }).then((users) => {
+    res.send(users[0]);
+  });
+})
+
+app.get('/logout', function (req, res) {
+  req.session = null;
+  res.redirect('/');
+})
 // app.get("/", (req, res) => res.sendFile(`${__dirname}/index.html`));
 // app.get("/style.css", (req, res) => res.sendFile(`${__dirname}/style.css`));
 // app.get("/styles2.css", (req, res) => res.sendFile(`${__dirname}/styles2.css`));
@@ -72,8 +86,8 @@ app.post("/login", (req, res) => {
           }).then((users) => {
             req.session.username = users[0].username;
             req.session.userId = users[0].id;
-            res.redirect('/')
-            res.send(users[0]);
+            res.redirect('/');
+            // res.send(users[0]);
           });
         } else {
           res.status(401).json({ password: "Invalid password" });

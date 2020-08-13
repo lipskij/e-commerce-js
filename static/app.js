@@ -1,3 +1,6 @@
+import { addToFavorite } from '/api.js';
+import Storage from '/storage.js';
+
 const client = contentful.createClient({
   // This is the space ID. A space is like a project folder in Contentful terms
   space: "l2ke6s697lzd",
@@ -6,9 +9,7 @@ const client = contentful.createClient({
 });
 
 // TODO: favorites with login/sign-up to save favorite products
-// TODO: add login
 // TODO: enable favorites after signup/login
-// TODO: add favorites to database
 
 const cartBtn = document.querySelector(".cart-btn");
 const closeCartBtn = document.querySelector(".close-cart");
@@ -30,7 +31,7 @@ const favItems = document.querySelector(".favorites-items");
 const clearFavBtn = document.querySelector(".clear-favorites");
 
 // favorites
-let favorites = [];
+// let favorites = [];
 // cart
 let cart = [];
 // buttons
@@ -202,6 +203,7 @@ class UI {
         let favoritesItem = { ...Storage.getProduct(id), amount: 1 };
         // add to the favorites
         this.favorites.favorites = [...this.favorites.favorites, favoritesItem];
+        addToFavorite(id);
         // show the favorites
         this.showFavorites();
       });
@@ -352,38 +354,6 @@ class UI {
   }
 }
 
-// local storage
-class Storage {
-  static saveProducts(products) {
-    localStorage.setItem("products", JSON.stringify(products));
-  }
-  static getProducts() {
-    let products = JSON.parse(localStorage.getItem("products"));
-    return products;
-  }
-  static getProduct(id) {
-    let products = JSON.parse(localStorage.getItem("products"));
-    return products.find((product) => product.id === id);
-  }
-  static saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }
-  static getCart() {
-    return localStorage.getItem("cart")
-      ? JSON.parse(localStorage.getItem("cart"))
-      : [];
-  }
-  //favorites
-  static saveFav(favorites) {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }
-  static getFav() {
-    return localStorage.getItem("favorites")
-      ? JSON.parse(localStorage.getItem("favorites"))
-      : [];
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const products = new Products();
   // get all products
@@ -392,5 +362,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((products) => {
       Storage.saveProducts(products);
       const ui = new UI();
+      if (Storage.isLoggedIn()) {
+        document.querySelector('.login-btn').innerHTML = "logout"
+        const link = document.querySelector('.logout-link');
+        link.addEventListener('click', () => localStorage.clear());
+        link.href = '/logout';
+      }
     });
 });

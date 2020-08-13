@@ -22,7 +22,15 @@
         <span class="nav-icon">
           <i class="fa fa-bars"></i>
         </span>
-        <img src="./images/roshiss.svg" alt="store logo" />
+        <picture>
+          <source media="(min-width:650px)" srcset="./images/roshiss.svg">
+          <img src="./images/RB.png" alt="store logo" />
+        </picture>
+        <button class="person-btn">
+          <span class="nav-icon">
+            <i class="fa fa-user"></i>
+          </span>
+        </button>
         <button class="favorites-btn">
           <span class="nav-icon">
             <i class="fa fa-gratipay"></i>
@@ -42,7 +50,7 @@
     <header class="hero">
       <div class="banner">
         <h1 class="banner-title">Bike Collection</h1>
-        <a href="signup.html">
+        <a class="logout-link" href="signup.html">
           <button class="login-btn">Log In</button>
         </a>
         <a data-page="product" href="#product">
@@ -122,6 +130,6 @@
     <!-- contentful -->
     <script src="https://unpkg.com/@ungap/event-target@0.2.2/min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>
