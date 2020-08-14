@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const User = require("./user");
 const salt = 10;
-const port = 3000;
+const port = process.env.SECRET || 3000;
 const Favorite = require('./favorites');
 
 app.use(bodyParser.json());
